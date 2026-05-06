@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  campaigns    Campaign[]
+
+  @@map("users")
+}
+
+model Campaign {
+  id             String      @id @default(cuid())
+  userId         String
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  caseFileNumber String?
+  data           Json        @default("{}")
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  storybooks     Storybook[]
+
+  @@index([userId])
+  @@map("campaigns")
+}
+
+model Storybook {
+  id         String   @id @default(cuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  title      String
+  filePath   String
+  sizeBytes  Int
+  createdAt  DateTime @default(now())
+
+  @@index([campaignId])
+  @@map("storybooks")
+}

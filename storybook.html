@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Session 14: Containment Breach</title>
+<style>
+@page {
+  size: 8.5in 11in;
+  margin: 1in 1in 1in 1in;
+  @bottom-center { content: counter(page); font-family: 'Courier New', monospace; font-size: 10pt; color: #8a4a2b; }
+  @top-center { content: "MUTANTS × MONSTERS // CASE FILE 14PN100206"; font-family: 'Courier New', monospace; font-size: 8pt; color: #b5b0a3; text-transform: uppercase; letter-spacing: 0.15em; }
+}
+@page :first { @top-center { content: none; } @bottom-center { content: none; } }
+
+body {
+  font-family: 'EB Garamond', 'Georgia', serif;
+  font-size: 11pt;
+  line-height: 1.65;
+  color: #1c1812;
+  background: #e8e2d0;
+  margin: 0;
+  padding: 0;
+}
+
+.cover {
+  page: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #2a2724;
+  color: #e8e2d0;
+  break-after: page;
+}
+.cover h1 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 36pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.1;
+  color: #f5c842;
+}
+.cover h2 {
+  font-family: 'Georgia', serif;
+  font-size: 16pt;
+  font-weight: normal;
+  font-style: italic;
+  color: #d97441;
+  margin: 1rem 0 2rem;
+}
+.cover .casefile {
+  font-family: 'Courier New', monospace;
+  font-size: 11pt;
+  color: #8b1f1f;
+  letter-spacing: 0.1em;
+  margin-top: 2rem;
+}
+.cover .dmline {
+  font-family: 'Courier New', monospace;
+  font-size: 9pt;
+  color: #b5b0a3;
+  margin-top: 3rem;
+}
+.cover .trefoil {
+  font-size: 48pt;
+  color: #f5c842;
+  margin-bottom: 2rem;
+}
+
+.chapter {
+  break-before: page;
+}
+.chapter-header {
+  text-align: center;
+  margin: 3rem 0 2rem;
+  padding-top: 2rem;
+}
+.chapter-number {
+  font-family: 'Courier New', monospace;
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #8a4a2b;
+  margin-bottom: 0.5rem;
+}
+.chapter-title {
+  font-family: 'Georgia', serif;
+  font-size: 24pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #1c1812;
+  margin: 0;
+}
+.chapter-quote {
+  font-style: italic;
+  font-size: 11pt;
+  color: #87917a;
+  max-width: 400px;
+  margin: 1rem auto 0;
+}
+
+.scene-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 14pt;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #1c1812;
+  margin: 1.5rem 0 0.25rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid #f5c842;
+}
+.scene-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #8a4a2b;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  text-align: justify;
+  margin: 0.75rem 0;
+  text-indent: 1.5em;
+}
+p:first-of-type { text-indent: 0; }
+
+.drop-cap {
+  float: left;
+  font-family: 'Georgia', serif;
+  font-size: 48pt;
+  line-height: 0.8;
+  padding-right: 8px;
+  padding-top: 4px;
+  color: #8b1f1f;
+}
+
+.environment {
+  background: #c9c2ad;
+  border: 1px solid #b5b0a3;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 9pt;
+  color: #2a2724;
+}
+
+.event {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid #4a6670;
+  background: rgba(232, 226, 208, 0.5);
+  font-size: 10pt;
+}
+.event-meta {
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8a4a2b;
+  margin-bottom: 0.2rem;
+}
+.event-mk { border-left-color: #0a0a0a; }
+.event-milestone { border-left-color: #b8336a; background: rgba(184, 51, 106, 0.08); }
+.event-resolution { border-left-color: #1f5d3a; }
+.event-scene { border-left-color: #f5c842; }
+
+.roll {
+  display: inline-block;
+  background: #2a2724;
+  color: #e8e2d0;
+  padding: 0.1rem 0.3rem;
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  margin-left: 0.3rem;
+}
+
+.milestone {
+  border: 2px solid #b8336a;
+  background: rgba(184, 51, 106, 0.05);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+  break-inside: avoid;
+}
+.milestone h3 {
+  font-family: 'Impact', sans-serif;
+  font-size: 14pt;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #b8336a;
+  margin: 0 0 0.5rem;
+}
+.milestone p {
+  font-style: italic;
+  margin: 0;
+  text-align: center;
+}
+
+.character-card {
+  border: 2px solid #1c1812;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  break-inside: avoid;
+}
+.character-card h4 {
+  font-family: 'Impact', sans-serif;
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0 0 0.3rem;
+}
+.character-type {
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #8b1f1f;
+  border: 1px solid #8b1f1f;
+  padding: 0.1rem 0.3rem;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin: 0.5rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  text-align: center;
+}
+.stat-box {
+  background: #c9c2ad;
+  padding: 0.2rem;
+}
+.stat-label { color: #8a4a2b; font-size: 7pt; text-transform: uppercase; }
+.stat-value { color: #1c1812; font-weight: bold; font-size: 9pt; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.ornament {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 18pt;
+  color: #8a4a2b;
+  letter-spacing: 0.5em;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid #c9c2ad;
+  margin: 2rem 0;
+  position: relative;
+}
+.section-divider::after {
+  content: '☢';
+  position: absolute;
+  left: 50%;
+  top: -0.5rem;
+  transform: translateX(-50%);
+  background: #e8e2d0;
+  padding: 0 0.5rem;
+  color: #8a4a2b;
+  font-size: 12pt;
+}
+
+.back-cover {
+  page: back;
+  break-before: page;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #2a2724;
+  color: #e8e2d0;
+}
+.back-cover h2 {
+  font-family: 'Georgia', serif;
+  font-size: 18pt;
+  color: #f5c842;
+}
+.back-cover p {
+  font-family: 'Courier New', monospace;
+  font-size: 9pt;
+  color: #b5b0a3;
+  max-width: 400px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="trefoil">☢</div>
+  <h1>CONTAINMENT<br>BREACH</h1>
+  <h2>The Flooded Vaults Beneath the Old Reactors</h2>
+  <div class="casefile">CASE FILE 14PN100206 // SESSION 14<br/>OCTOBER 14, 2235</div>
+  <div class="dmline">DM: M.K. // PLAYERS: ALEX, JORDAN, SAM<br/>TRANSCRIBED FROM LIVE SESSION LOGS</div>
+</div>
+
+<!-- DRAMATIS PERSONAE -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Dramatis Personae</div>
+    <div class="chapter-title">The Survivors</div>
+  </div>
+
+  <div class="character-card">
+    <h4>KARA-7</h4>
+    <span class="character-type">SY // SYNTHETIC</span>
+    <div class="stats">
+      <div class="stat-box"><div class="stat-label">VIT</div><div class="stat-value">14</div></div>
+      <div class="stat-box"><div class="stat-label">MX</div><div class="stat-value">8</div></div>
+      <div class="stat-box"><div class="stat-label">REF</div><div class="stat-value">12</div></div>
+      <div class="stat-box"><div class="stat-label">BRT</div><div class="stat-value">10</div></div>
+      <div class="stat-box"><div class="stat-label">CUN</div><div class="stat-value">15</div></div>
+      <div class="stat-box"><div class="stat-label">END</div><div class="stat-value">13</div></div>
+      <div class="stat-box"><div class="stat-label">PRS</div><div class="stat-value">9</div></div>
+    </div>
+    <p>Synthetic reconnaissance unit recovered from a demolished observatory. Her neural core carries fragments of pre-Collapse star charts. Speaks in precise, clipped sentences. Developed an unexpected appreciation for old-world poetry.</p>
+  </div>
+
+  <div class="character-card">
+    <h4>GRISTLE</h4>
+    <span class="character-type">MU // MUTANT</span>
+    <div class="stats">
+      <div class="stat-box"><div class="stat-label">VIT</div><div class="stat-value">18</div></div>
+      <div class="stat-box"><div class="stat-label">MX</div><div class="stat-value">16</div></div>
+      <div class="stat-box"><div class="stat-label">REF</div><div class="stat-value">8</div></div>
+      <div class="stat-box"><div class="stat-label">BRT</div><div class="stat-value">17</div></div>
+      <div class="stat-box"><div class="stat-label">CUN</div><div class="stat-value">6</div></div>
+      <div class="stat-box"><div class="stat-label">END</div><div class="stat-value">15</div></div>
+      <div class="stat-box"><div class="stat-label">PRS</div><div class="stat-value">7</div></div>
+    </div>
+    <p>Former meatpacker from Pasco. Mutation manifested as calcified bone ridges beneath his skin—living armor that cracks and regrows. Carries a meat-hook welded to a rebar shaft: "The Tenderizer." Quietly terrified of what he is becoming.</p>
+  </div>
+
+  <div class="character-card">
+    <h4>THE BLOAT</h4>
+    <span class="character-type">MU // MUTANT</span>
+    <div class="stats">
+      <div class="stat-box"><div class="stat-label">VIT</div><div class="stat-value">22</div></div>
+      <div class="stat-box"><div class="stat-label">MX</div><div class="stat-value">19</div></div>
+      <div class="stat-box"><div class="stat-label">REF</div><div class="stat-value">5</div></div>
+      <div class="stat-box"><div class="stat-label">BRT</div><div class="stat-value">14</div></div>
+      <div class="stat-box"><div class="stat-label">CUN</div><div class="stat-value">4</div></div>
+      <div class="stat-box"><div class="stat-label">END</div><div class="stat-value">20</div></div>
+      <div class="stat-box"><div class="stat-label">PRS</div><div class="stat-value">3</div></div>
+    </div>
+    <p>Amphibious mutant of uncertain origin. Body stores and releases pressurized toxic fluid. Skin is translucent in places—organs pulse behind membrane walls. Communicates in gurgles and clicks. Never leaves a fallen comrade behind.</p>
+  </div>
+
+  <div class="ornament">☢ ☢ ☢</div>
+  <p>Three survivors walk into the Hanford Zone. One is a synthetic with a dead satellite's memories. One is a butcher whose bones have become his armor. One is a river-thing that stores poison in its translucent guts. They are not heroes. They are what remains when heroes have died. This is their record.</p>
+</div>
+
+<!-- CHAPTER I -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Chapter I</div>
+    <div class="chapter-title">The Approach</div>
+    <div class="chapter-quote">"The desert does not forgive. It remembers every footprint."</div>
+  </div>
+
+  <p><span class="drop-cap">T</span>he three survivors crest a ridge of compacted ash and look down upon the Hanford Nuclear Reservation. Where once there were guard towers and chain-link fences, now only rusted stumps remain. The 200 Area stretches before them like a graveyard of industrial ambition—half-collapsed process buildings, evaporative ponds turned to salt pans, and the hulking silhouettes of decommissioned reactors against a bruised sky.</p>
+
+  <div class="environment">
+    <strong>ENVIRONMENT:</strong> Eastern Washington scrubland. Temperature: 42°F. Wind: 12mph from the northwest, carrying trace particulates. Geiger counter reads 0.8 mSv/h—elevated but survivable for short exposure. Hazards: Sinkholes, rupture burrowers, thermal vents.
+  </div>
+
+  <div class="scene-title">Scrubland Perimeter</div>
+  <div class="scene-subtitle">Dawn, October 14</div>
+
+  <p>KARA-7 scans the approach with her dosimeter-optic. She spots a corridor of relatively stable ground between two evaporative ponds, but her scan also picks up thermal blooms beneath the eastern pond. Something large is moving under the salt.</p>
+
+  <div class="event">
+    <div class="event-meta">09:14 // M.K.</div>
+    SCENE: SCRUBLAND PERIMETER — The survivors approach the 200 Area after three days of travel from Kremlin's Outpost. The cooling towers loom ahead, one partially collapsed.
+  </div>
+
+  <div class="event">
+    <div class="event-meta">09:16 // Alex (KARA-7)</div>
+    KARA-7 scans the approach. She wants to identify the safest path. <span class="roll">D20: 14 vs 12 → SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">09:17 // M.K.</div>
+    KARA-7's optic flickers through three spectra. She spots a corridor of relatively stable ground between two evaporative ponds—the crust looks thick enough to bear weight. However, her scan also picks up thermal blooms beneath the eastern pond. Something large is moving under the salt.
+  </div>
+
+  <p>Gristle takes point. "If something comes up from that pond, I want to be the first thing it sees." The group advances single-file. As they pass the eastern pond, the surface ripples. Not from wind. From below. The Bloat positions himself between the group and the pond, expanding his torso, ready to absorb a hit or release bile if needed.</p>
+
+  <div class="event">
+    <div class="event-meta">09:28 // Sam (The Bloat)</div>
+    The Bloat positions himself. <span class="roll">D20: 18 vs 20 → FAILURE</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">09:29 // M.K.</div>
+    The Bloat's roll (18 vs END 20) is a near-miss. He manages to interpose himself, but his left flank remains exposed. The ripple in the pond subsides. Whatever was down there has chosen not to surface. For now.
+  </div>
+
+  <p>"I do not like that we just walked past something that decided not to eat us," Jordan mutters. "That means it is saving us for later."</p>
+
+  <div class="scene-title">Cooling Tower B</div>
+  <div class="scene-subtitle">Mid-morning</div>
+
+  <p>Cooling Tower B rises like a broken tooth against the horizon. Its concrete shell has spiderwebbed with decades of thermal stress and seismic aftershocks. The eastern quadrant has partially collapsed, exposing the internal fill to the elements. Where once water cascaded through the hyperboloid structure, now only dust and the occasional radioactive trickle descend.</p>
+
+  <div class="environment">
+    <strong>ENVIRONMENT:</strong> Interior of partially collapsed cooling tower. Concrete debris, rusted rebar, stagnant pools of cooling water. Ambient radiation: 2.3 mSv/h. The tower hums with a low-frequency resonance—possibly from damaged turbine equipment below.
+  </div>
+
+  <p>The survivors reach the tower's base. The access door is rusted shut, but a collapse in the eastern wall has created an opening large enough to squeeze through. KARA-7 detects a faint power signature—barely 40 watts, but consistent—emanating from approximately 80 meters below the tower's base level. "Something is still drawing current," she reports. "A pump, perhaps. Or a relay."</p>
+
+  <div class="event">
+    <div class="event-meta">10:15 // Jordan (GRISTLE)</div>
+    Gristle forces the rusted door with his shoulder. <span class="roll">D20: 12 vs 17 → FAILURE</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">10:16 // M.K.</div>
+    Gristle's roll (12 vs BRT 17) fails to budge the door cleanly. He impacts with a wet crunch—his calcified plates absorb most of the damage, but the door only opens a hand's width. It will require a second attempt, or the group can use the collapse opening on the eastern side.
+  </div>
+
+  <p>The Bloat squeezes through the eastern collapse opening. His translucent skin catches the dim light from within, glowing faintly turquoise. But his bulk catches on a jagged rebar spear. The bar punches through his translucent flank, releasing a pressurized spray of bile that hits the interior wall with a sizzle.</p>
+
+  <div class="event">
+    <div class="event-meta">10:20 // Sam (The Bloat)</div>
+    The Bloat squeezes through. <span class="roll">D20: 20 vs 22 → CRITICAL FAILURE</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">10:21 // M.K.</div>
+    Critical miss! The Bloat's roll (20 vs VIT 22) is a critical failure. His bulk catches on jagged rebar. The bar punches through his translucent flank, releasing a pressurized spray of bile. The Bloat takes 4 HP damage and gains the BLEEDING condition. The noise echoes through the tower.
+  </div>
+
+  <p>From somewhere deep in the tower, something screams back. Not human. Not animal. A harmonic shriek that vibrates in the calcified plates on Gristle's back.</p>
+</div>
+
+<!-- CHAPTER II -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Chapter II</div>
+    <div class="chapter-title">The Flooded Vault</div>
+    <div class="chapter-quote">"Water remembers. It holds the shape of every chamber it has claimed."</div>
+  </div>
+
+  <p><span class="drop-cap">T</span>he central sump shaft descends through forty meters of reinforced concrete and basalt. Emergency staircases cling to the shaft walls like rusted vertebrae—some intact, others reduced to skeletal frameworks that terminate in empty air. Water drips from above, not clean rain but condensation heavy with isotopes, collecting in pools that shimmer with faint Cherenkov blue.</p>
+
+  <div class="environment">
+    <strong>ENVIRONMENT:</strong> Vertical sump shaft, 40 meters deep. Emergency stairs (50% collapsed). Ambient radiation: 4.1 mSv/h. Water covers the lowest 8 meters. Bioluminescent algae colonies grow on submerged walls, casting an eerie aquamarine glow.
+  </div>
+
+  <div class="scene-title">The Descent</div>
+  <div class="scene-subtitle">Noon, October 14</div>
+
+  <p>The survivors begin their descent. The stairs groan underfoot. Below, the water surface glitters with bioluminescent algae. KARA-7 examines the water with her optic, but her analysis is incomplete—she identifies high particulate content but misses the spore colonies suspended in the upper water column. Swimming through will expose the group to Mycotic Infection risk.</p>
+
+  <div class="event">
+    <div class="event-meta">10:45 // M.K.</div>
+    SCENE: THE SUMP SHAFT — The survivors begin their descent. The stairs groan underfoot. Below, the water surface glitters with bioluminescent algae.
+  </div>
+
+  <p>Gristle leads the climb down the intact stair sections. A stair tread crumbles beneath his weight. He drops two meters before catching the next intact step with his meat-hook, leaving gouges in the concrete. The impact cracks two of his dorsal plates—Armor condition worsens to BREACHED.</p>
+
+  <p>The Bloat offers to swim down and scout the submerged lower level. His amphibious lungs can handle the water. He submerges and swims downward through the glowing water. His translucent skin absorbs the Cherenkov radiation like a sponge—his dosimeter readings actually decrease while submerged. But his return trip is slower; the spore colonies have begun colonizing the mucous membranes of his exposed gills. He gains the condition MYCONTAMINATED.</p>
+
+  <p>"So the water is making him MORE radioactive?" Alex asks. "That is not how physics works."</p>
+  <p style="font-style:italic; color:#87917a;">"In the Hanford Zone," M.K. replies, "physics works for tips."</p>
+
+  <div class="scene-title">The Vault Chamber</div>
+  <div class="scene-subtitle">Beneath the Waterline</div>
+
+  <p>The access hatch opens into a vault chamber that was never meant to be seen by human eyes again. Stainless steel walls—now pitted and streaked with rust—reflect the bioluminescent glow from the water in rippling patterns. At the center of the chamber stands a cylindrical containment vessel, three meters in diameter, its surface covered in warning placards that have faded to illegibility.</p>
+
+  <p>The vessel hums. Not from machinery—from something inside. KARA-7 deciphers the faded placards: <strong>"DOE-H-74-32. CONTAINMENT CLASS: WRAITH. BIOLOGICAL ANOMALY. DO NOT VENTILATE."</strong> A secondary label, handwritten in marker by someone long dead, adds: <strong>"It sings at night. Do not sing back."</strong></p>
+
+  <div class="event">
+    <div class="event-meta">11:24 // Alex (KARA-7)</div>
+    KARA-7 examines the vessel. <span class="roll">D20: 17 vs 15 → SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">11:26 // M.K.</div>
+    KARA-7's roll (17 vs CUN 15) succeeds. She deciphers the faded placards. Her dosimeter-optic detects thermal bloom inside the vessel. Something is alive in there. Something that runs hot.
+  </div>
+
+  <p>As KARA-7 reads the placard, the vessel's surface temperature spikes by 12 degrees. The hum rises in pitch—not to a scream, but to something worse. A melody. Three notes, repeating, in a harmonic sequence that makes the water in the chamber vibrate in sympathetic waves.</p>
+
+  <div class="event event-mk">
+    <div class="event-meta">11:34 // M.K. [DM NOTE]</div>
+    The Wraith is aware of the party. It will not attack immediately—it is curious. The song is a probe, testing their responses. Players who engage with the song (singing back, matching harmonics) will trigger a different encounter path than those who attack or flee.
+  </div>
+
+  <p>"I am not singing back," Sam says. "I am not singing back. I am definitely not singing back."</p>
+</div>
+
+<!-- CHAPTER III -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Chapter III</div>
+    <div class="chapter-title">The Wraith</div>
+    <div class="chapter-quote">"Some doors should remain closed. Some songs should never be answered."</div>
+  </div>
+
+  <p><span class="drop-cap">T</span>he containment vessel's pressure seal releases with a sound like a dying organ chord. Steam—not water vapor, but something denser, more viscous—pours from the vent valves and pools on the chamber floor. The song stops. In the sudden silence, the survivors hear only their own breathing, the drip of water, and the slow, wet unfolding of something that has been waiting a very long time to stretch.</p>
+
+  <p>The Wraith is not what the players expect. It is not a monster in any conventional sense. It is a shape carved from absence—a humanoid silhouette approximately 2.2 meters tall, its edges blurring into the vapor like a photographic negative. Where a face should be, there is only a smooth oval of bioluminescent membrane that pulses in rhythm with the chamber's remaining radiation monitors. It has no eyes, but it looks at each of them in turn. Its song resumes—not three notes now, but a complex chord that seems to ask a question.</p>
+
+  <div class="event">
+    <div class="event-meta">11:49 // M.K.</div>
+    SCENE: CONTAINMENT FAILURE — The vessel opens. The Wraith emerges. Visibility reduced to 3 meters by anomalous vapor. Ambient radiation spiking—12.4 mSv/h and climbing.
+  </div>
+
+  <div class="event">
+    <div class="event-meta">11:52 // Alex (KARA-7)</div>
+    KARA-7 attempts to communicate. She matches the Wraith's harmonic frequency. <span class="roll">D20: 20 vs 9 → CRITICAL SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">11:53 // M.K.</div>
+    Critical success! KARA-7's synthetic voice matches the Wraith's frequency with mathematical precision. The Wraith's membrane-face brightens—not in aggression, but in recognition. It extends a hand. A data crystal, grown from its own crystallized secretions, drops into KARA-7's palm. It contains schematics: the entire Hanford facility, with one chamber marked in red.
+  </div>
+
+  <p>But Gristle has had enough. The Wraith's proximity—its impossible presence—triggers something primal. Before anyone can stop him, he swings The Tenderizer in a wide arc aimed at the Wraith's membrane-face.</p>
+
+  <div class="event">
+    <div class="event-meta">11:56 // Jordan (GRISTLE)</div>
+    Attack roll. "I am ending this before it ends us." <span class="roll">D20: 7 vs 17 → FAILURE</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">11:57 // M.K.</div>
+    Gristle's attack (7 vs BRT 17) fails catastrophically. The meat-hook passes through the Wraith's silhouette without resistance—its body is not fully material. A tendril of anomalous vapor coalesces into a solid whip that strikes Gristle's exposed left flank. He takes 8 HP damage, his armor plates shatter audibly, and he is thrown into the chamber wall. Condition: UNCONSCIOUS.
+  </div>
+
+  <p>The Bloat releases a full volley of pressurized bile at the Wraith. The bile passes through the silhouette and splatters against the containment vessel, etching the metal with acid. But the Wraith pauses. It turns its membrane-face toward The Bloat. The bioluminescent pulse slows. It is studying him. His radiation-absorbing biology has triggered its curiosity.</p>
+
+  <p>KARA-7 places herself between the Wraith and The Bloat. She raises the data crystal. "We will go where you want. We will find what you have lost. But you let us leave."</p>
+
+  <div class="event">
+    <div class="event-meta">12:02 // Alex (KARA-7)</div>
+    KARA-7 negotiates. <span class="roll">D20: 14 vs 9 → SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">12:03 // M.K.</div>
+    KARA-7's roll (14 vs PRS 9) succeeds. The Wraith's song shifts to a minor key—a sound that might be sorrow, might be gratitude. It steps back. The vapor parts, creating a corridor to the submerged access hatch. The message is clear: leave. Take the crystal. Do not return without what it seeks.
+  </div>
+
+  <div class="milestone">
+    <h3>Milestone: The Wraith Bargain</h3>
+    <p>The survivors escape the vault with a data crystal, a wounded comrade, and a mission they do not fully understand. Gristle is stabilized but unconscious. The Bloat carries him. KARA-7 carries the crystal. And somewhere behind them, in the flooded dark, the Wraith sings a new song—one that sounds almost like hope.</p>
+  </div>
+</div>
+
+<!-- CHAPTER IV -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Chapter IV</div>
+    <div class="chapter-title">The Ascent</div>
+    <div class="chapter-quote">"The way back is never the same as the way down."</div>
+  </div>
+
+  <p><span class="drop-cap">K</span>remlin's Outpost squats in a defunct rail yard three kilometers from the Hanford perimeter. Its walls are welded train cars, its gates are chains of tires and razor wire, and its inhabitants are the kind of people who measure trust in radiation exposure. The survivors arrive at dusk, Gristle slung between The Bloat and a borrowed travois, KARA-7 clutching the data crystal like a prayer bead.</p>
+
+  <div class="environment">
+    <strong>ENVIRONMENT:</strong> Mutant trading post at dusk. Temperature dropping. Wind carries the smell of cookfires and ozone. The outpost's generators pulse with uneven rhythm—salvaged solar panels charging jury-rigged batteries.
+  </div>
+
+  <p>The Bloat seeks out the outpost's healer—a mutant called Needles who trades in antibiotics and stories. Gristle gets basic stabilization—his bleeding is stopped, his cracked plates are splinted with rebar strapping—but he remains unconscious. Needles estimates 48 hours before he can travel. "Your friend took a beating that would have killed a normal man," she says, eyeing The Bloat's translucent skin with professional interest. "His plates saved him. This time."</p>
+
+  <p>KARA-7 examines the data crystal in private. She interfaces with it through her neural port—a risky procedure, given its alien origin. The data floods her visual cortex: architectural schematics of the entire Hanford facility, 200+ structures mapped in three dimensions. Most are marked in the blue of standard DOE notation. But one chamber, deep beneath the B Reactor, glows arterial red. The Wraith's mark. And attached to the schematic: a single word. A name. <strong>"MIRIAM."</strong></p>
+
+  <div class="event">
+    <div class="event-meta">16:45 // Alex (KARA-7)</div>
+    KARA-7 extracts the crystal's contents. <span class="roll">D20: 19 vs 15 → SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">16:48 // M.K.</div>
+    KARA-7's roll (19 vs CUN 15) is a solid success. She deciphers the crystal. One chamber beneath the B Reactor glows arterial red. The Wraith's mark. Attached: a single name. "MIRIAM."
+  </div>
+
+  <p>"The Wraith wants us to find someone named Miriam? Or something named Miriam?" Alex asks.</p>
+  <p style="font-style:italic; color:#87917a;">"The crystal does not specify," M.K. replies. "But the Wraith paid for your passage with secrets. It expects results."</p>
+
+  <p>As night falls over the outpost, a new arrival enters through the tire-gates. A courier from the Columbia River settlements, bearing news: the Foundation—an organization that claims to be rebuilding civilization—has established a research station at the old White Bluffs ferry landing. They are looking for "anomalous biological specimens" from the Hanford Zone. They pay in clean water, antibiotics, and ammunition.</p>
+
+  <p>[DM NOTE: The Foundation is a new faction hook. They are not necessarily antagonists, but their interest in "specimens" creates tension with mutant communities.]</p>
+
+  <p>Gristle, waking briefly, grabs KARA-7's arm. "The crystal," he slurs. "Do not trust it. The Wraith did not give us a map. It gave us a leash." He passes out again.</p>
+
+  <div class="event">
+    <div class="event-meta">17:15 // Jordan (GRISTLE)</div>
+    Gristle, waking: "Do not trust the crystal. It is a leash." <span class="roll">D20: 11 vs 6 → SUCCESS</span>
+  </div>
+
+  <div class="event">
+    <div class="event-meta">17:16 // M.K.</div>
+    Gristle's instincts cut through the seductive clarity of the Wraith's gift. The crystal may indeed be a leash. But it is also the only map to whatever the Wraith wants found. And in the Hanford Zone, information is worth more than clean water.
+  </div>
+</div>
+
+<!-- CHAPTER V -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Chapter V</div>
+    <div class="chapter-title">Crossroads</div>
+    <div class="chapter-quote">"Every ending is a door. Every door is a choice."</div>
+  </div>
+
+  <p><span class="drop-cap">D</span>awn breaks over Kremlin's Outpost with the color of old bruises—purple and yellow and sick green. The survivors gather around a cookfire of pallet wood and dried sage, warming their hands and reviewing what they have learned. Gristle is conscious but weak, his plates knitting with audible clicks beneath the splints. The Bloat has metabolized most of the spore contamination, his gills fluttering clean in the morning air. KARA-7 holds the crystal, its surface now warm from her neural interface.</p>
+
+  <p>The group has several paths forward: return to the Hanford Zone and search for the red-marked chamber beneath the B Reactor; make contact with the Foundation at White Bluffs; track down the name "Miriam" through the outpost's information networks; or rest and recover, risking that the Wraith's patience is not infinite.</p>
+
+  <div class="event">
+    <div class="event-meta">07:00 // M.K.</div>
+    SCENE: THE MORNING AFTER — Session 14 concludes. The survivors rest, recover, and plan.
+  </div>
+
+  <p>KARA-7 proposes a compromise: they rest for 48 hours while Gristle recovers, then head for the B Reactor. She will spend the downtime analyzing the crystal more thoroughly. The group agrees. She will spend the next two days in deep analysis. The Bloat will help Gristle with physical therapy—his hypertrophic regeneration can accelerate bone healing through cellular transfer. It is an intimate, unsettling process that involves The Bloat pressing his translucent skin against Gristle's cracked plates. Gristle hates it. It works.</p>
+
+  <div class="milestone">
+    <h3>Session 14 Complete</h3>
+    <p>The survivors have survived the Flooded Vault, bargained with a Wraith, and emerged with a mystery. Gristle is wounded but recovering. The Bloat carries new spore colonies in his gills (benign, for now). KARA-7 carries the weight of a dead woman's name. And somewhere in the Hanford dark, a song continues—waiting for an answer.</p>
+  </div>
+
+  <p>"Next session," Jordan says. "We find Miriam. And we find out what the Wraith is really after."</p>
+  <p>"I just want to not get stabbed by rebar again," Sam replies. "That is my entire character arc."</p>
+  <p style="font-style:italic; color:#87917a;">"No promises," M.K. says.</p>
+</div>
+
+<!-- APPENDIX A -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Appendix A</div>
+    <div class="chapter-title">Environmental Hazards</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h4 style="font-family:Impact,sans-serif; text-transform:uppercase; font-size:11pt; letter-spacing:0.1em;">The Hanford Zone</h4>
+      <p>The Hanford Nuclear Reservation occupies 586 square miles of Eastern Washington scrubland. Before the Collapse, it produced plutonium for the United States nuclear weapons program. After the Collapse, it produced mutations.</p>
+      <p>The Zone is divided into numbered areas: the 100 Area (reactors), the 200 Area (process buildings), the 300 Area (fuel fabrication), and the 400 Area (test sites). Each carries its own radiation signature, its own mutated ecology, its own ghosts.</p>
+    </div>
+    <div>
+      <h4 style="font-family:Impact,sans-serif; text-transform:uppercase; font-size:11pt; letter-spacing:0.1em;">Radiation &amp; Mutation</h4>
+      <p>Radiation in the Zone is not uniform. It pools in low-lying areas, concentrates in standing water, and spikes near breached containment vessels. Mutations manifest differently in each individual.</p>
+      <p>The MX (Mutation Index) attribute measures a character's accumulated mutational load. High MX grants powerful abilities but increases the risk of Terminal Cascade—a condition where mutations become uncontrollable and lethal.</p>
+    </div>
+  </div>
+</div>
+
+<!-- APPENDIX B -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Appendix B</div>
+    <div class="chapter-title">Character Development Notes</div>
+  </div>
+
+  <div class="ornament">☢ ☢ ☢</div>
+
+  <h4 style="font-family:Impact,sans-serif; text-transform:uppercase; font-size:12pt; letter-spacing:0.15em;">KARA-7</h4>
+  <p>Manufactured in the Orion Spur assembly yards, KARA-7 was originally a deep-space telemetry drone. After the Collapse, she wandered the Hanford perimeter for six years, cataloging mutations in the scrubland fauna. Her left optical sensor was replaced with a salvaged dosimeter that flickers amber in the presence of concentrated isotopes. She speaks in precise, clipped sentences and has developed an unexpected appreciation for old-world poetry.</p>
+  <p><strong>Active Mutations:</strong> Optical Dosimeter Graft, Neural Cartography Fragment, Thermal Regulation Fault</p>
+
+  <h4 style="font-family:Impact,sans-serif; text-transform:uppercase; font-size:12pt; letter-spacing:0.15em; margin-top:1.5rem;">GRISTLE</h4>
+  <p>Before the world ended, Gristle worked the killing floor at a Tyson plant in the Tri-Cities. The Outbreak found him elbow-deep in a side of beef, and the mutation took hold before he could wash the blood off. His "armor" started as hairline fractures in his forearms; by year three, it was full calcified plates covering his torso and shoulders. He carries a meat-hook welded to a rebar shaft—calls it "The Tenderizer." Underneath the plates and the grime, he is quietly terrified of what he is becoming.</p>
+  <p><strong>Active Mutations:</strong> Calcified Dermal Plating, Pain Suppression, Hypertrophic Regeneration</p>
+
+  <h4 style="font-family:Impact,sans-serif; text-transform:uppercase; font-size:12pt; letter-spacing:0.15em; margin-top:1.5rem;">THE BLOAT</h4>
+  <p>No one knows where The Bloat came from. He surfaced in the Columbia River delta during a rad-storm, walking out of the water like a walrus made of tumors and regret. His skin is translucent in places—you can see organs pulsing behind membrane walls. He communicates in gurgles, clicks, and the occasional wet whistle. Despite his appearance, the other survivors treat him with a strange reverence. He never leaves a fallen comrade behind, and his body can absorb enough radiation to shield a room.</p>
+  <p><strong>Active Mutations:</strong> Pressurized Bile Glands, Radiation Sponge, Amphibious Respiration</p>
+</div>
+
+<!-- APPENDIX C -->
+<div class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">Appendix C</div>
+    <div class="chapter-title">Milestones &amp; Achievements</div>
+  </div>
+
+  <div class="milestone" style="margin:0.75rem 0;">
+    <h3>The Wraith Bargain</h3>
+    <p>Survived the Flooded Vault and negotiated with a Wraith-class anomaly</p>
+  </div>
+
+  <div class="milestone" style="margin:0.75rem 0;">
+    <h3>Gristle Unconscious</h3>
+    <p>Severe injuries from Wraith attack. 48-hour recovery at Kremlin's Outpost</p>
+  </div>
+
+  <div class="milestone" style="margin:0.75rem 0;">
+    <h3>Data Crystal Acquired</h3>
+    <p>Obtained anomalous schematic crystal from the Wraith. Location: B Reactor Sub-Level 7</p>
+  </div>
+
+  <div class="milestone" style="margin:0.75rem 0;">
+    <h3>Foundation Contact</h3>
+    <p>Learned of Foundation presence at White Bluffs ferry landing</p>
+  </div>
+
+  <div class="milestone" style="margin:0.75rem 0;">
+    <h3>The Name Miriam</h3>
+    <p>Discovered a single name attached to the Wraith's target location</p>
+  </div>
+
+  <div class="section-divider"></div>
+  <p style="text-align:center; font-style:italic; color:#87917a; margin-top:2rem;">This story continues in Session 15: "The B Reactor Beneath."</p>
+</div>
+
+<!-- BACK COVER -->
+<div class="back-cover">
+  <h2>Session 14 Complete</h2>
+  <p>Survivors Remaining: 3<br/>Total HP Lost: 12<br/>Milestones Achieved: 5<br/>Secrets Uncovered: 1 (Miriam)<br/>Wraiths Bargained With: 1<br/>Foundation Contacts: 0 (pending)</p>
+  <div class="ornament">☢ ☢ ☢</div>
+  <p>"In the Hanford Zone, the dead do not rest. They wait for company."</p>
+</div>
+
+</body>
+</html>

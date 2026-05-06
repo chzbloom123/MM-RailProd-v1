@@ -1,0 +1,24 @@
+{
+  "name": "mmc",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "app",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,green \"npm run dev -w app\" \"npm run dev -w server\"",
+    "build": "npm run build -w server && npm run build -w app",
+    "start": "npm run start -w server",
+    "db:generate": "npm run db:generate -w server",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:push": "npm run db:push -w server",
+    "db:dev": "npm run db:dev -w server"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
