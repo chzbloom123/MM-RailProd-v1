@@ -219,6 +219,14 @@ const TitleBarSep = styled.span`
   color: ${theme.colors.textMuted};
 `;
 
+const OnlineDot = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: ${theme.colors.declassified};
+  animation: ${statusPulse} 2s infinite;
+`;
+
 /* ───────── Section 3: The Pitch ───────── */
 const PitchSection = styled.section`
   background: ${theme.colors.paper};
@@ -949,7 +957,7 @@ export default function Home() {
             SYSTEM:
           </TitleBarText>
           <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing[2], fontFamily: theme.fonts.mono, fontSize: theme.typography.label, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: theme.colors.declassified }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: theme.colors.declassified, animation: `${statusPulse} 2s infinite` }} />
+            <OnlineDot aria-hidden="true" />
             ONLINE
           </div>
         </TitleBarContent>
