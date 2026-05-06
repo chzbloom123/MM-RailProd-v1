@@ -36,7 +36,6 @@ async function main() {
     await fastify.register(fastifyStatic, {
       root: frontendDist,
       prefix: '/',
-      wildcard: false,
     });
 
     fastify.setNotFoundHandler((req, reply) => {
